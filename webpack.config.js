@@ -18,7 +18,18 @@ var config = {
             query: {
                presets: ['es2015', 'react']
             }
-         }
+         },
+         {
+            test: /\.(mov|mp4)$/,
+            use: [
+              {
+                loader: 'file-loader',
+                options: {
+                  name: '[name].[ext]'
+                }
+              }
+            ]
+          }
       ]
    }
 }
