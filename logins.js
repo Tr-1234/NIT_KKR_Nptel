@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { loginUrl } from './urls';
+import { baseUrl, adminUrl , loginUrl } from './urls';
 import {
     Redirect,
     Route,
@@ -22,8 +22,7 @@ class Login extends Component {
     console.log('Login', props);
     this.state={
       name:'',
-      password:'',
-      flag: -1,
+      password:''
     }
   };
 
@@ -51,7 +50,7 @@ class Login extends Component {
                   style={{ marginTop: -10 }}
                 />
                 <br/>
-                <RaisedButton label="Login" primary={true} style={styles.buttonStyle} />
+                <RaisedButton label="Login" primary={true} style={styles.buttonStyle} onClick={(event) => {this.isPersonPresent(event)}} />
               </div>
             </div>
 
@@ -62,6 +61,23 @@ class Login extends Component {
     );
   }
 
+  isPersonPresent(event){
+
+    var that = this;
+    var apiUrl = baseUrl + adminUrl + this.state.name + this.state.password;
+
+    axios.get(apiUrl)
+    .then(function (response) {
+      console.log(response);
+      if(response.status == 200){
+        console.log("gotcha");
+      }
+    })
+    .catch(function (error) {
+      alert(error.response.data.message);
+    });
+
+  }
 
   }
 
