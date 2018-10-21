@@ -11,7 +11,7 @@ export default function App(props) {
   return (
     <div>
       <Switch>
-        <Route path="/" exact component={Login} />
+        <Route path="/" exact component={ Login } />
       </Switch>
     </div>
   )

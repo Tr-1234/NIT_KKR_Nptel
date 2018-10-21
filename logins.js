@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { loginUrl } from './urls';
 import {
     Redirect,
     Route,
