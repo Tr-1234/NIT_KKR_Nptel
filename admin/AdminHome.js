@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import * as MaterialIcon from 'react-icons/lib/md';
+import AdminPalette from './AdminPalette';
 
 import {
   baseUrl ,
@@ -19,7 +20,7 @@ import {
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-export default class DyCeeHome extends React.Component {
+export default class AdminHome extends React.Component {
 
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ export default class DyCeeHome extends React.Component {
       course_name:'',
       author:'',
       name:'',
-      flag=0
+      flag:0
     }
   };
 
@@ -45,7 +46,7 @@ export default class DyCeeHome extends React.Component {
           <div>
             <AppBar title="Admin Home" width="50%"/>
             <div style={{ display: 'flex', flexDirection: 'row'}}>
-              <DyCeePalette
+              <AdminPalette
                 onClickInsert={() => this.setState({flag :1})}
                 onClickUpdate={() => this.setState({flag :2})}
                 onClickDelete = {() => this.setState({flag :3})}

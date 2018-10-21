@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as MaterialIcon from 'react-icons/lib/md';
 
 
-export default class DyCeePalette extends React.Component {
+export default class AdminPalette extends React.Component {
 
   constructor(props) {
     super(props);
