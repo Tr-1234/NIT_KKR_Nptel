@@ -39,7 +39,7 @@ class Login extends Component {
                 <TextField
                   hintText="Enter your name"
                   floatingLabelText="Name"
-                  onChange = {(event,newValue) => this.setState({name:newValue, flag: -1})}
+                  onChange = {(event,newValue) => this.setState({name:newValue})}
                   style={{ marginTop: 10 }}
                 />
                 <TextField
@@ -64,12 +64,17 @@ class Login extends Component {
   isPersonPresent(event){
 
     var that = this;
-    var apiUrl = baseUrl + "/users/" + this.state.name + "/password/" + this.state.password;
+  //  var apiUrl = baseUrl + "/users/" + this.state.name + "/password/" + this.state.password;
+    var apiUrl = baseUrl + adminUrl.replace(":name",that.state.name).replace(":password",that.state.password);
+
     axios.get(apiUrl)
     .then(function (response) {
       console.log(response);
       if(response.status == 200){
         console.log("gotcha");
+        that.props.history.push({
+          pathname : '/admin'
+        });
       }
     })
     .catch(function (error) {
