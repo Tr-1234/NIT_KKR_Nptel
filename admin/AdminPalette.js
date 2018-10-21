@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as MaterialIcon from 'react-icons/lib/md';
+import * as MaterialIcon from 'react-icons/md';
 
 
 export default class AdminPalette extends React.Component {

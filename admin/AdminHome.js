@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
-import * as MaterialIcon from 'react-icons/lib/md';
+import * as MaterialIcon from 'react-icons/md';
 import AdminPalette from './AdminPalette';
 
 import {
