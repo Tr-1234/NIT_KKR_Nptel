@@ -64,8 +64,7 @@ class Login extends Component {
   isPersonPresent(event){
 
     var that = this;
-    var apiUrl = baseUrl + adminUrl + this.state.name + this.state.password;
-
+    var apiUrl = baseUrl + "/users/" + this.state.name + "/password/" + this.state.password;
     axios.get(apiUrl)
     .then(function (response) {
       console.log(response);
