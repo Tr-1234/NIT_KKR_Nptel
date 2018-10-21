@@ -18,12 +18,6 @@ export default class AdminPalette extends React.Component {
         </a>
         <div style={styles.dividerStyle}/>
 
-        <a onClick={this.props.onClickUpdate} style={styles.innerContainerStyle}>
-          <MaterialIcon.MdPeopleOutline size={styles.iconSize} style={styles.iconStyle}/>
-          <span style={styles.textStyle}>Update</span>
-        </a>
-        <div style={styles.dividerStyle}/>
-
         <a onClick={this.props.onClickDelete} style={styles.innerContainerStyle}>
           <MaterialIcon.MdPeople size={styles.iconSize} style={styles.iconStyle}/>
           <span style={styles.textStyle}>Delete</span>

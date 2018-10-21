@@ -6,7 +6,9 @@ import AdminPalette from './AdminPalette';
 
 import {
   baseUrl ,
-
+  profileUrl ,
+  adminUrl ,
+  insertUrl
 } from './../urls';
 
 import {
@@ -26,17 +28,24 @@ export default class AdminHome extends React.Component {
     super(props);
 
     this.state = {
-      responseDataArray : [],
+      responseDataArray:[],
       code:'',
       course_name:'',
       author:'',
       name:'',
+      password:'',
       flag:0
     }
   };
 
-
-
+  clearFields(){
+    this.setState({
+      code :        '' ,
+      author :      '',
+      course_name : '',
+      name :        '',
+    });
+  }
 
   render() {
 
@@ -48,12 +57,14 @@ export default class AdminHome extends React.Component {
             <div style={{ display: 'flex', flexDirection: 'row'}}>
               <AdminPalette
                 onClickInsert={() => this.setState({flag :1})}
-                onClickUpdate={() => this.setState({flag :2})}
-                onClickDelete = {() => this.setState({flag :3})}
-                onClickGet_Data={() => this.setState({flag : 4})}
-                onClickProfile={() => this.getProfileInfo()}
+                onClickDelete = {() => this.setState({flag :2})}
+                onClickGet_Data={() => this.setState({flag : 3})}
+                onClickProfile={() => this.getProfileInfo(this)}
                 onClickLogout={() => this.logout()}
               />
+
+              { this.insertRecord() }
+              { this.showProfile() }
 
 
             </div>
@@ -61,8 +72,161 @@ export default class AdminHome extends React.Component {
         </MuiThemeProvider>
       </div>
     );
+
+
+
   }
 
+
+
+    insertRecord = () => {
+
+      if(this.state.flag == 1)
+      {
+        return (
+
+          <div style={styles.outerContainerStyle}>
+            <span style={styles.headingStyle}>Insert Record</span>
+            <div style={styles.innerContainerStyle}>
+                  <TextField
+                    hintText="Name"
+                    floatingLabelText="Name"
+                    value = {this.state.name}
+                    onChange = {(event,newValue) => this.setState({name:newValue })}
+                    style={styles.textFieldStyle}
+                  />
+                  <TextField
+                    hintText="Course Name"
+                    floatingLabelText="Course Name"
+                    value = {this.state.course_name}
+                    onChange = {(event,newValue) => this.setState({course_name:newValue })}
+                    style={styles.textFieldStyle}
+                  />
+                  <TextField
+                    hintText="Author"
+                    floatingLabelText="Author"
+                    value = {this.state.author}
+                    onChange = {(event,newValue) => this.setState({author:newValue })}
+                    style={styles.textFieldStyle}
+                  />
+                  <TextField
+                    hintText="Code"
+                    floatingLabelText="Code"
+                    value = {this.state.code}
+                    onChange = {(event,newValue) => this.setState({code:newValue })}
+                    style={styles.textFieldStyle}
+                  />
+
+                  <RaisedButton label="Insert Record" primary={true} style={styles.buttonStyle} onClick={(event) => {this.insert(event)}} />
+
+              </div>
+            </div>
+          </div>
+
+        );
+      }
+    }
+
+
+  showProfile = () => {
+    if(this.state.flag == 10)
+    return(
+      <div style={styles.outerContainerStyle}>
+        <span style={styles.headingStyle}>My Profile</span>
+        <div style={styles.innerContainerStyle}>
+          <div style={styles.childContainer}>
+            <div style={styles.textCellStyle}>
+              <MaterialIcon.MdPerson size={styles.iconSize} style={styles.iconStyle} />
+              <TextField
+                hintText="Enter name"
+                floatingLabelText="Name"
+                value = {this.state.name}
+                style={styles.textFieldStyle}
+              />
+            </div>
+            <div style={styles.textCellStyle}>
+              <MaterialIcon.MdLockOpen size={styles.iconSize} style={styles.iconStyle} />
+              <TextField
+                hintText="Enter password"
+                floatingLabelText="Password"
+                value = {this.state.password}
+                style={styles.textFieldStyle}
+              />
+            </div>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+
+
+  logout(){
+    this.props.history.replace({
+      pathname : '/'
+    });
+  }
+
+  insert(event){
+    var that=this;
+
+    if(
+      that.state.code == '' ||
+      that.state.course_name == '' ||
+      that.state.author == '' ||
+      that.state.name == '' ||
+    ){
+      alert("Required fields shouldn't be empty!!");
+      return;
+    }
+
+    var apiUrl=baseUrl + insertUrl;
+
+    var body = {
+      "name" :         that.state.name ,
+      "course_name" :  that.state.course_name,
+      "author" :       that.state.author,
+      "code" :         that.state.code
+
+    };
+
+    console.log(body);
+    axios.post(apiUrl,body)
+   .then(response => {
+       if(response.status == 200){
+          that.clearFields();
+         }
+         else if(response.status == 204) {
+           alert("Record is already present!");
+         }
+      })
+   .catch(error => {
+     alert(error.response.data.message);
+   });
+
+  }
+
+
+  getProfileInfo(event){
+
+    var apiUrl = baseUrl + profileUrl;
+    var that=this;
+    axios.get(apiUrl)
+    .then(function (response) {
+      console.log(response);
+      if(response.status == 200){
+          that.setState({name : response.data.name, password: response.data.password, flag:10});
+
+      }
+      else if(response.status == 404) {
+        alert("No user found ");
+      }
+    })
+    .catch(function (error) {
+        alert(error.response.data.message);
+    })
+  }
 
 }
 
