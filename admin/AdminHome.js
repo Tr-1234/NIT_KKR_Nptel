@@ -48,7 +48,6 @@ export default class AdminHome extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <MuiThemeProvider>
@@ -72,63 +71,59 @@ export default class AdminHome extends React.Component {
         </MuiThemeProvider>
       </div>
     );
-
-
-
   }
 
 
 
-    insertRecord = () => {
+  insertRecord(){
 
-      if(this.state.flag == 1)
-      {
-        return (
+    if(this.state.flag == 1)
+    {
+      return (
 
-          <div style={styles.outerContainerStyle}>
-            <span style={styles.headingStyle}>Insert Record</span>
-            <div style={styles.innerContainerStyle}>
-                  <TextField
-                    hintText="Name"
-                    floatingLabelText="Name"
-                    value = {this.state.name}
-                    onChange = {(event,newValue) => this.setState({name:newValue })}
-                    style={styles.textFieldStyle}
-                  />
-                  <TextField
-                    hintText="Course Name"
-                    floatingLabelText="Course Name"
-                    value = {this.state.course_name}
-                    onChange = {(event,newValue) => this.setState({course_name:newValue })}
-                    style={styles.textFieldStyle}
-                  />
-                  <TextField
-                    hintText="Author"
-                    floatingLabelText="Author"
-                    value = {this.state.author}
-                    onChange = {(event,newValue) => this.setState({author:newValue })}
-                    style={styles.textFieldStyle}
-                  />
-                  <TextField
-                    hintText="Code"
-                    floatingLabelText="Code"
-                    value = {this.state.code}
-                    onChange = {(event,newValue) => this.setState({code:newValue })}
-                    style={styles.textFieldStyle}
-                  />
+        <div style={styles.outerContainerStyle}>
+          <span style={styles.headingStyle}>Insert Record</span>
+          <div style={styles.innerContainerStyle}>
+                <TextField
+                  hintText="Name"
+                  floatingLabelText="Name"
+                  value = {this.state.name}
+                  onChange = {(event,newValue) => this.setState({name:newValue })}
+                  style={styles.textFieldStyle}
+                />
+                <TextField
+                  hintText="Course Name"
+                  floatingLabelText="Course Name"
+                  value = {this.state.course_name}
+                  onChange = {(event,newValue) => this.setState({course_name:newValue })}
+                  style={styles.textFieldStyle}
+                />
+                <TextField
+                  hintText="Author"
+                  floatingLabelText="Author"
+                  value = {this.state.author}
+                  onChange = {(event,newValue) => this.setState({author:newValue })}
+                  style={styles.textFieldStyle}
+                />
+                <TextField
+                  hintText="Code"
+                  floatingLabelText="Code"
+                  value = {this.state.code}
+                  onChange = {(event,newValue) => this.setState({code:newValue })}
+                  style={styles.textFieldStyle}
+                />
 
-                  <RaisedButton label="Insert Record" primary={true} style={styles.buttonStyle} onClick={(event) => {this.insert(event)}} />
+                <RaisedButton label="Insert Record" primary={true} style={styles.buttonStyle} onClick={(event) => {this.insert(event)}} />
 
-              </div>
             </div>
           </div>
 
-        );
-      }
+      );
     }
+  }
 
 
-  showProfile = () => {
+  showProfile(){
     if(this.state.flag == 10)
     return(
       <div style={styles.outerContainerStyle}>
@@ -175,7 +170,7 @@ export default class AdminHome extends React.Component {
       that.state.code == '' ||
       that.state.course_name == '' ||
       that.state.author == '' ||
-      that.state.name == '' ||
+      that.state.name == ''
     ){
       alert("Required fields shouldn't be empty!!");
       return;
