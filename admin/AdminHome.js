@@ -235,7 +235,7 @@ export default class AdminHome extends React.Component {
       return;
     }
 
-    var apiUrl=baseUrl + deleteUrl + that.state.code ;
+    var apiUrl=baseUrl + deleteUrl.replace(":code",that.state.code) ;
     axios.delete(apiUrl)
    .then(response => {
        if(response.status == 200){
