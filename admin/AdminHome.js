@@ -30,9 +30,11 @@ export default class AdminHome extends React.Component {
 
     this.state = {
       responseDataArray:[],
-      code:'',
+      course_id:'',
       course_name:'',
-      author:'',
+      discipline_name:'',
+      professor_name:'',
+      phase:'',
       name:'',
       password:'',
       flag:0
@@ -41,10 +43,11 @@ export default class AdminHome extends React.Component {
 
   clearFields(){
     this.setState({
-      code :        '' ,
-      author :      '',
-      course_name : '',
-      name :        '',
+      course_id:'',
+      course_name:'',
+      discipline_name:'',
+      professor_name:'',
+      phase:'',
     });
   }
 
@@ -86,10 +89,17 @@ export default class AdminHome extends React.Component {
           <span style={styles.headingStyle}>Insert Record</span>
           <div style={styles.innerContainerStyle}>
                 <TextField
-                  hintText="Name"
-                  floatingLabelText="Name"
-                  value = {this.state.name}
-                  onChange = {(event,newValue) => this.setState({name:newValue })}
+                  hintText="Course_ID"
+                  floatingLabelText="Course_ID"
+                  value = {this.state.course_id}
+                  onChange = {(event,newValue) => this.setState({course_id:newValue })}
+                  style={styles.textFieldStyle}
+                />
+                <TextField
+                  hintText="Discipline_Name"
+                  floatingLabelText="Discipline_Name"
+                  value = {this.state.discipline_name}
+                  onChange = {(event,newValue) => this.setState({discipline_name:newValue })}
                   style={styles.textFieldStyle}
                 />
                 <TextField
@@ -100,17 +110,17 @@ export default class AdminHome extends React.Component {
                   style={styles.textFieldStyle}
                 />
                 <TextField
-                  hintText="Author"
-                  floatingLabelText="Author"
-                  value = {this.state.author}
-                  onChange = {(event,newValue) => this.setState({author:newValue })}
+                  hintText="Professor Name"
+                  floatingLabelText="Professor Name"
+                  value = {this.state.professor_name}
+                  onChange = {(event,newValue) => this.setState({professor_name:newValue })}
                   style={styles.textFieldStyle}
                 />
                 <TextField
-                  hintText="Code"
-                  floatingLabelText="Code"
-                  value = {this.state.code}
-                  onChange = {(event,newValue) => this.setState({code:newValue })}
+                  hintText="Phase"
+                  floatingLabelText="Phase"
+                  value = {this.state.phase}
+                  onChange = {(event,newValue) => this.setState({phase:newValue })}
                   style={styles.textFieldStyle}
                 />
 
@@ -130,10 +140,10 @@ export default class AdminHome extends React.Component {
         <span style={styles.headingStyle}>Delete Record</span>
         <div style={styles.innerContainerStyle}>
               <TextField
-                hintText="Code"
-                floatingLabelText="Code"
-                value = {this.state.code}
-                onChange = {(event,newValue) => this.setState({code:newValue })}
+                hintText="Course_ID"
+                floatingLabelText="Course_ID"
+                value = {this.state.course_id}
+                onChange = {(event,newValue) => this.setState({course_id:newValue })}
                 style={styles.textFieldStyle}
               />
 
@@ -189,10 +199,11 @@ export default class AdminHome extends React.Component {
     var that=this;
 
     if(
-      that.state.code == '' ||
+      that.state.course_id == '' ||
       that.state.course_name == '' ||
-      that.state.author == '' ||
-      that.state.name == ''
+      that.state.professor_name == '' ||
+      that.state.discipline_name == '' ||
+      that.state.phase == ''
     ){
       alert("Required fields shouldn't be empty!!");
       return;
@@ -201,11 +212,11 @@ export default class AdminHome extends React.Component {
     var apiUrl=baseUrl + insertUrl;
 
     var body = {
-      "name" :         that.state.name ,
-      "course_name" :  that.state.course_name,
-      "author" :       that.state.author,
-      "code" :         that.state.code
-
+      "discipline_name" : that.state.discipline_name ,
+      "course_name"     : that.state.course_name,
+      "professor_name" :  that.state.professor_name,
+      "course_id" :       that.state.course_id,
+       "phase"    :       that.state.phase
     };
 
     console.log(body);
@@ -229,13 +240,13 @@ export default class AdminHome extends React.Component {
     var that=this;
 
     if(
-      that.state.code == ''
+      that.state.course_id == ''
     ){
       alert("Required fields shouldn't be empty!!");
       return;
     }
 
-    var apiUrl=baseUrl + deleteUrl.replace(":code",that.state.code) ;
+    var apiUrl=baseUrl + deleteUrl.replace(":code",that.state.course_id) ;
     axios.delete(apiUrl)
    .then(response => {
        if(response.status == 200){
