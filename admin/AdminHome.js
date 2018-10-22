@@ -8,7 +8,8 @@ import {
   baseUrl ,
   profileUrl ,
   adminUrl ,
-  insertUrl
+  insertUrl ,
+  deleteUrl
 } from './../urls';
 
 import {
@@ -63,8 +64,8 @@ export default class AdminHome extends React.Component {
               />
 
               { this.insertRecord() }
-              { this.showProfile() }
-
+              { this.showProfile()  }
+              { this.deleteRecord() }
 
             </div>
           </div>
@@ -122,6 +123,27 @@ export default class AdminHome extends React.Component {
     }
   }
 
+  deleteRecord(){
+    if(this.state.flag == 2)
+    return(
+      <div style={styles.outerContainerStyle}>
+        <span style={styles.headingStyle}>Delete Record</span>
+        <div style={styles.innerContainerStyle}>
+              <TextField
+                hintText="Code"
+                floatingLabelText="Code"
+                value = {this.state.code}
+                onChange = {(event,newValue) => this.setState({code:newValue })}
+                style={styles.textFieldStyle}
+              />
+
+              <RaisedButton label="Delete Record" primary={true} style={styles.buttonStyle} onClick={(event) => {this.deletee(event)}} />
+
+          </div>
+        </div>
+
+    );
+  }
 
   showProfile(){
     if(this.state.flag == 10)
@@ -191,6 +213,7 @@ export default class AdminHome extends React.Component {
    .then(response => {
        if(response.status == 200){
           that.clearFields();
+          alert("Record inserted successfully");
          }
          else if(response.status == 204) {
            alert("Record is already present!");
@@ -202,6 +225,32 @@ export default class AdminHome extends React.Component {
 
   }
 
+  deletee(event){
+    var that=this;
+
+    if(
+      that.state.code == ''
+    ){
+      alert("Required fields shouldn't be empty!!");
+      return;
+    }
+
+    var apiUrl=baseUrl + deleteUrl + that.state.code ;
+    axios.delete(apiUrl)
+   .then(response => {
+       if(response.status == 200){
+          that.clearFields();
+          alert("Record deleted successfully");
+         }
+         else if(response.status == 204) {
+           alert("Record is not present!");
+         }
+      })
+   .catch(error => {
+     alert(error.response.data.message);
+   });
+
+  }
 
   getProfileInfo(event){
 
