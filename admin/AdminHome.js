@@ -9,7 +9,8 @@ import {
   profileUrl ,
   adminUrl ,
   insertUrl ,
-  deleteUrl
+  deleteUrl ,
+  fetchinfoUrl
 } from './../urls';
 
 import {
@@ -48,6 +49,7 @@ export default class AdminHome extends React.Component {
       discipline_name:'',
       professor_name:'',
       phase:'',
+      responseDataArray:[]
     });
   }
 
@@ -61,7 +63,7 @@ export default class AdminHome extends React.Component {
               <AdminPalette
                 onClickInsert={() => this.setState({flag :1})}
                 onClickDelete = {() => this.setState({flag :2})}
-                onClickGet_Data={() => this.setState({flag : 3})}
+                onClickGet_Data={() => this.fetchinfo(this)}
                 onClickProfile={() => this.getProfileInfo(this)}
                 onClickLogout={() => this.logout()}
               />
@@ -69,6 +71,7 @@ export default class AdminHome extends React.Component {
               { this.insertRecord() }
               { this.showProfile()  }
               { this.deleteRecord() }
+              { this.fetchRecord()  }
 
             </div>
           </div>
@@ -153,6 +156,42 @@ export default class AdminHome extends React.Component {
         </div>
 
     );
+  }
+
+  fetchRecord(){
+     if(this.state.flag == 3)
+     return(
+           <div style={{flex : 1}}>
+             <div style = {styles.outerContainerStyle}>
+               <span style={styles.headingStyle}>List of Records</span>
+             </div>
+
+               <div style={styles.itemHeaderContainer}>
+               <span style={styles.textCellContainer}>S.No.</span>
+               <span style={styles.textCellContainer}>Course_ID</span>
+               <span style={styles.textCellContainer}>Discipline_Name</span>
+               <span style={styles.textCellContainer}>Course_Name</span>
+               <span style={styles.textCellContainer}>Professor_Name</span>
+               <span style={styles.textCellContainer}>Phase</span>
+             </div>
+
+             {
+               this.state.responseDataArray.map((member,key) => {
+                 return (
+                   <div style={styles.itemContainer}>
+                     <span style={styles.textCellContainer}>{key + 1}</span>
+                     <span style={styles.textCellContainer}>{member.course_id}</span>
+                     <span style={styles.textCellContainer}>{member.discipline_name}</span>
+                     <span style={styles.textCellContainer}>{member.course_name}</span>
+                     <span style={styles.textCellContainer}>{member.professor_name}</span>
+                     <span style={styles.textCellContainer}>{member.phase}</span>
+                   </div>
+                 )
+               })
+             }
+           </div>
+
+     );
   }
 
   showProfile(){
@@ -281,6 +320,23 @@ export default class AdminHome extends React.Component {
     .catch(function (error) {
         alert(error.response.data.message);
     })
+  }
+
+  fetchinfo(){
+
+    var that = this;
+    var apiUrl = baseUrl + fetchinfoUrl;
+
+    axios.get(apiUrl)
+    .then( response => {
+      console.log(response);
+      that.setState({ responseDataArray : response.data , flag : 3});
+      
+    })
+    .catch(error => {
+      console.log(error.response);
+      alert(error.response.data.message);
+    });
   }
 
 }
