@@ -51,6 +51,8 @@ class Login extends Component {
                 />
                 <br/>
                 <RaisedButton label="Login" primary={true} style={styles.buttonStyle} onClick={(event) => {this.isPersonPresent(event)}} />
+                <RaisedButton label="Student" primary={true} style={styles.buttonStyle} onClick={(event) => {this.page(event)}} />
+
               </div>
             </div>
 
@@ -81,6 +83,12 @@ class Login extends Component {
       alert(error.response.data.message);
     });
 
+  }
+
+  page(event){
+    this.props.history.push({
+      pathname : '/student'
+    });
   }
 
   }

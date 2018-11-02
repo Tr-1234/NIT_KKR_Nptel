@@ -6,3 +6,6 @@ export const profileUrl= "/admin/";
 export const insertUrl = "/course/";
 export const deleteUrl = "/course/code/:code";
 export const fetchinfoUrl = "/courses/";
+export const disciplineUrl = "/discipline/getAll/";
+export const courseUrl = "/course/getAll/";
+export const professorUrl = "/professor/getAll/";
