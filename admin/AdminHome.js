@@ -164,27 +164,24 @@ export default class AdminHome extends React.Component {
            <div style={{flex : 1}}>
              <div style = {styles.outerContainerStyle}>
                <span style={styles.headingStyle}>List of Records</span>
-             </div>
 
-               <div style={styles.itemHeaderContainer}>
-               <span style={styles.textCellContainer}>S.No.</span>
-               <span style={styles.textCellContainer}>Course_ID</span>
-               <span style={styles.textCellContainer}>Discipline_Name</span>
-               <span style={styles.textCellContainer}>Course_Name</span>
-               <span style={styles.textCellContainer}>Professor_Name</span>
-               <span style={styles.textCellContainer}>Phase</span>
              </div>
 
              {
                this.state.responseDataArray.map((member,key) => {
                  return (
-                   <div style={styles.itemContainer}>
-                     <span style={styles.textCellContainer}>{key + 1}</span>
-                     <span style={styles.textCellContainer}>{member.course_id}</span>
-                     <span style={styles.textCellContainer}>{member.discipline_name}</span>
-                     <span style={styles.textCellContainer}>{member.course_name}</span>
-                     <span style={styles.textCellContainer}>{member.professor_name}</span>
-                     <span style={styles.textCellContainer}>{member.phase}</span>
+                   <div style={styles.purchaseOrderContainer}>
+
+                     <div style={{display:'flex', flexDirection:'column'}}>
+                       <div style={styles.boxStyle}><span><span style={styles.textLabel}>S.No. : </span> {key+1}</span></div>
+                       <div style={styles.boxStyle}><span><span style={styles.textLabel}>Course_ID : </span>{member.Course_ID}</span></div>
+                       <div style={styles.boxStyle}><span><span style={styles.textLabel}>Discipline_Name : </span>{member.Discipline_Name}</span></div>
+                       <div style={styles.boxStyle}><span><span style={styles.textLabel}>Course_Name : </span>{member.Course_Name}</span></div>
+                       <div style={styles.boxStyle}><span><span style={styles.textLabel}>Professor_Name : </span>{member.Professor_Name}</span></div>
+                       <div style={styles.boxStyle}><span><span style={styles.textLabel}>Phase : </span>{member.Phase}</span></div>
+
+                     </div>
+
                    </div>
                  )
                })
@@ -331,7 +328,7 @@ export default class AdminHome extends React.Component {
     .then( response => {
       console.log(response);
       that.setState({ responseDataArray : response.data , flag : 3});
-      
+
     })
     .catch(error => {
       console.log(error.response);
@@ -385,7 +382,6 @@ const styles = {
   itemContainer: {
     display : 'flex',
     flexDirection : 'row',
-    alignItems : 'center',
     justifyContent: 'space-around',
     borderBottom: '1px solid #aaa69d',
     margin: 5,
@@ -425,7 +421,7 @@ const styles = {
   boxStyle: {
     display: 'flex',
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
   icBoxStyle: {
     display: 'flex',
@@ -486,184 +482,6 @@ const styles = {
     justifyContent:'flex-end',
     margin: 12
   },
-  initiatedStyle: {
-    backgroundColor : 'rgb(255,153,0)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  inProgressStyle: {
-    backgroundColor : 'rgb(50,70,195)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  IRPartialStyle: {
-    backgroundColor : '#420420',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  processedStyle: {
-    backgroundColor : 'rgb(50,220,50)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  forwardedStyle: {
-    backgroundColor : 'rgb(255, 75, 100)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  assignedStyle: {
-    backgroundColor : 'rgb(180, 75, 12)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  intimatedStyle: {
-    backgroundColor : 'rgb(193, 181, 12)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  visitedStyle: {
-    backgroundColor : 'rgb(94, 13, 193)',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  passedStyle: {
-    backgroundColor : '#13B47E',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  rejectedStyle: {
-    backgroundColor : '#FF0000',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  approvedStyle: {
-    backgroundColor : '#33FF00',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  dispatchedStyle: {
-    backgroundColor : '#663399',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  itemAcceptedStyle: {
-    backgroundColor : '#FFCC00',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  itemRejectedStyle: {
-    backgroundColor : '#CC0000',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  amendmentRequestedStyle: {
-    backgroundColor : '#809BBD',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  nominatedStyle: {
-    backgroundColor : '#D683B2',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  generatedStyle: {
-    backgroundColor : '#00CCFF',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  },
-  finishedStyle: {
-    backgroundColor : '#99FF00',
-    borderRadius: 2,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    margin: 10,
-    fontWeight : 'bold',
-    color : 'white'
-  }
+
+
 };
