@@ -156,7 +156,7 @@ export default class StudentHome extends Component {
 
       var that = this;
     //  var apiUrl = baseUrl + "/users/" + this.state.name + "/password/" + this.state.password;
-      var apiUrl = baseUrl + linkidUrl.replace(":professor_name",that.state.professorName).replace(":course_name",that.state.courseName);
+      var apiUrl = baseUrl + linkidUrl.replace(":professor_name",that.state.professorName.value).replace(":course_name",that.state.courseName.value);
 
       axios.get(apiUrl)
       .then(function (response) {
