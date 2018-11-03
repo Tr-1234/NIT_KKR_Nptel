@@ -12,7 +12,8 @@ import {
   baseUrl,
   disciplineUrl,
   courseUrl,
-  professorUrl
+  professorUrl,
+  linkidUrl
 } from './../urls';
 
 import axios from 'axios';
@@ -82,6 +83,7 @@ export default class StudentHome extends Component {
                 onChange={(val)=>this.setState({disciplineName: val})}
                 options={this.state.discipline_name_array}
               />
+              <RaisedButton label="Search" primary={true} style={styles.buttonStyle} onClick={(event) => {this.Search(event)}} />
 
           </div>
         </MuiThemeProvider>
@@ -150,6 +152,24 @@ export default class StudentHome extends Component {
 
     }
 
+    Search(event){
+
+      var that = this;
+    //  var apiUrl = baseUrl + "/users/" + this.state.name + "/password/" + this.state.password;
+      var apiUrl = baseUrl + linkidUrl.replace(":professor_name",that.state.professorName).replace(":course_name",that.state.courseName);
+
+      axios.get(apiUrl)
+      .then(function (response) {
+        console.log(response);
+        if(response.status == 200){
+          console.log("gotcha");
+        }
+      })
+      .catch(function (error) {
+        alert(error.response.data.message);
+      });
+
+    }
 
 
 

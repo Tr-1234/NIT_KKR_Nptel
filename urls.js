@@ -9,3 +9,4 @@ export const fetchinfoUrl = "/courses/";
 export const disciplineUrl = "/discipline/getAll/";
 export const courseUrl = "/course/getAll/";
 export const professorUrl = "/professor/getAll/";
+export const linkidUrl = "/professor/:professor_name/course/:course_name";
