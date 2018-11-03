@@ -15,11 +15,18 @@ import {
 } from './../urls';
 
 import axios from 'axios';
+
 import {
   AppBar,
   RaisedButton,
-  TextField
+  TextField, IconButton, SvgIcon,
+  Dialog,
+  FlatButton
 } from 'material-ui';
+
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 
 export default class StudentHome extends Component {
 
@@ -49,8 +56,6 @@ export default class StudentHome extends Component {
           <div>
 
             <AppBar title="Student Home"/>
-
-
 
 
           </div>

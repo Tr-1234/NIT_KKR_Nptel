@@ -394,24 +394,13 @@ const styles = {
   BoldText:{
     fontWeight : 'Bold'
   },
-  corrigendumLabel: {
-    fontFamily: 'Montserrat',
-    fontWeight: 'Bold',
-    color: '#ff5719',
-    fontSize : '18px',
-    flex : 2
-  },
+  
   textLabel:{
     fontFamily: 'Montserrat',
     fontWeight: 'Bold',
     color: '#006266'
   },
-  ICLabel:{
-    fontFamily: 'Montserrat',
-    fontWeight: 'Bold',
-    color: '#FF1493',
-    fontSize : '20px'
-  },
+
   textStyle:{
     fontFamily: 'Montserrat',
     fontSize: '14px',
@@ -423,13 +412,7 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
   },
-  icBoxStyle: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems : 'left',
-    marginLeft : '60px'
-  },
+
   comboStyle: {
     display: 'flex',
     flex: 1,
@@ -467,21 +450,13 @@ const styles = {
   iconStyle: {
     marginTop: 18
   },
-  headingStyle: {
-    textAlign : 'center',
-    width : '100%',
-    fontFamily: 'Montserrat',
-    fontSize: '22px',
-    marginTop : 10,
-    fontWeight: 'Bold',
-    color: '#006266'
-  },
+
   buttonContainerStyle: {
     display: 'flex',
     flexDirection:'row',
     justifyContent:'flex-end',
     margin: 12
-  },
+  }
 
 
 };
