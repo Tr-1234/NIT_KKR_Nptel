@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Select from 'react-select';
 import {
     Redirect,
     Route,
@@ -38,7 +39,10 @@ export default class StudentHome extends Component {
       password:'',
       discipline_name_array:[],
       course_name_array:[],
-      professor_name_array:[]
+      professor_name_array:[],
+      courseName: null,
+      professorName: null,
+      disciplineName: null
     }
   };
 
@@ -56,7 +60,28 @@ export default class StudentHome extends Component {
           <div>
 
             <AppBar title="Student Home"/>
-
+            <br/><br/>
+            <p>Course Name</p>
+              <Select
+                name={this.state.courseName}
+                value={this.state.courseName}
+                onChange={(val)=>this.setState({courseName: val})}
+                options={this.state.course_name_array}
+              />
+            <p>Professor Name</p>
+              <Select
+                name={this.state.professorName}
+                value={this.state.professorName}
+                onChange={(val)=>this.setState({professorName: val})}
+                options={this.state.professor_name_array}
+              />
+            <p>Discipline Name</p>
+              <Select
+                name={this.state.disciplineName}
+                value={this.state.disciplineName}
+                onChange={(val)=>this.setState({disciplineName: val})}
+                options={this.state.discipline_name_array}
+              />
 
           </div>
         </MuiThemeProvider>
@@ -71,8 +96,11 @@ export default class StudentHome extends Component {
 
     axios.get(apiUrl)
     .then( response => {
-      console.log(response);
-      that.setState({ discipline_name_array: response.data });
+      var temp = [];
+      response.data.map(x=>{
+        temp.push({label: x.Discipline_Name, value: x.Discipline_Name});
+      });
+      that.setState({ discipline_name_array: temp });
     })
     .catch(error => {
       console.log(error.response);
@@ -88,8 +116,11 @@ export default class StudentHome extends Component {
 
     axios.get(apiUrl)
     .then( response => {
-      console.log(response);
-      that.setState({ course_name_array: response.data });
+      var temp = [];
+      response.data.map(x=>{
+        temp.push({label: x.Course_Name, value: x.Course_Name});
+      });
+      that.setState({ course_name_array: temp });
     })
     .catch(error => {
       console.log(error.response);
@@ -106,8 +137,11 @@ export default class StudentHome extends Component {
 
       axios.get(apiUrl)
       .then( response => {
-        console.log(response);
-        that.setState({ professor_name_array: response.data });
+        var temp = [];
+        response.data.map(x=>{
+          temp.push({label: x.Professor_Name, value: x.Professor_Name});
+        });
+        that.setState({ professor_name_array: temp });
       })
       .catch(error => {
         console.log(error.response);
