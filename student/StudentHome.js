@@ -43,7 +43,11 @@ export default class StudentHome extends Component {
       professor_name_array:[],
       courseName: null,
       professorName: null,
-      disciplineName: null
+      disciplineName: null,
+      code: '',
+      phase: '',
+      code_array:[],
+      flag:0
     }
   };
 
@@ -55,6 +59,7 @@ export default class StudentHome extends Component {
   }
 
   render() {
+
     return (
       <div>
         <MuiThemeProvider>
@@ -90,6 +95,7 @@ export default class StudentHome extends Component {
       </div>
     );
   }
+
 
   fetchDiscipline(event){
     console.log("fetchDiscipline");
@@ -162,18 +168,20 @@ export default class StudentHome extends Component {
       .then(function (response) {
         console.log(response);
         if(response.status == 200){
-          console.log("gotcha");
-        }
-      })
+            that.setState({
+              code : response.data.Course_ID ,
+              phase : response.data.Phase,
+            });
+            console.log(that.state.code);
+            console.log(that.state.phase);
+          }
+        })
       .catch(function (error) {
         alert(error.response.data.message);
       });
 
-    }
-
-
-
   }
+}
 
   const styles = {
     outerContainerStyle: {
