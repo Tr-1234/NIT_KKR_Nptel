@@ -53,9 +53,6 @@ export default class StudentHome extends Component {
 
   componentDidMount(){
     this.fetchDiscipline(event);
-    this.fetchCourse(event);
-    this.fetchProfessor(event);
-
   }
 
   render() {
@@ -67,20 +64,6 @@ export default class StudentHome extends Component {
 
             <AppBar title="Student Home"/>
             <br/><br/>
-            <p>Course Name</p>
-              <Select
-                name={this.state.courseName}
-                value={this.state.courseName}
-                onChange={(val)=>this.setState({courseName: val})}
-                options={this.state.course_name_array}
-              />
-            <p>Professor Name</p>
-              <Select
-                name={this.state.professorName}
-                value={this.state.professorName}
-                onChange={(val)=>this.setState({professorName: val})}
-                options={this.state.professor_name_array}
-              />
             <p>Discipline Name</p>
               <Select
                 name={this.state.disciplineName}
@@ -88,6 +71,33 @@ export default class StudentHome extends Component {
                 onChange={(val)=>this.setState({disciplineName: val})}
                 options={this.state.discipline_name_array}
               />
+             {
+               this.state.disciplineName != null ?
+                   this.fetchCourse(event);
+                   <p>Course Name</p>
+                     <Select
+                       name={this.state.courseName}
+                       value={this.state.courseName}
+                       onChange={(val)=>this.setState({courseName: val})}
+                       options={this.state.course_name_array}
+                     />
+                   :null
+             }
+
+              {
+                this.state.courseName !=null ?
+                    this.fetchProfessor(event);
+                    <p>Professor Name</p>
+                      <Select
+                        name={this.state.professorName}
+                        value={this.state.professorName}
+                        onChange={(val)=>this.setState({professorName: val})}
+                        options={this.state.professor_name_array}
+                      />
+                     :null
+
+              }
+
               <RaisedButton label="Search" primary={true} style={styles.buttonStyle} onClick={(event) => {this.Search(event)}} />
 
           </div>
