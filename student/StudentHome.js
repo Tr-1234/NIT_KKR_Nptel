@@ -130,7 +130,7 @@ export default class StudentHome extends Component {
   fetchCourse(event){
     console.log("fetchCourse");
     var that = this;
-    let apiUrl = baseUrl+courseUrl;
+    let apiUrl = baseUrl+courseUrl.replace(":discipline_name",that.state.disciplineName.value);
 
     axios.get(apiUrl)
     .then( response => {
@@ -151,7 +151,7 @@ export default class StudentHome extends Component {
     fetchProfessor(event){
       console.log("fetchProfessor");
       var that = this;
-      let apiUrl = baseUrl+professorUrl;
+      let apiUrl = baseUrl+professorUrl.replace(":course_name",that.state.courseName.value);
 
       axios.get(apiUrl)
       .then( response => {
