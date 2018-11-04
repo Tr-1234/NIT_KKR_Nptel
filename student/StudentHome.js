@@ -68,25 +68,34 @@ export default class StudentHome extends Component {
               <Select
                 name={this.state.disciplineName}
                 value={this.state.disciplineName}
-                onChange={(val)=>this.setState({disciplineName: val})}
+                onChange={(val)=>{
+                  this.setState({disciplineName: val});
+                  this.fetchCourse(event, val.value);
+                  }
+                }
                 options={this.state.discipline_name_array}
               />
              {
-               this.state.disciplineName != null ?
-                   this.fetchCourse(event);
+               this.state.course_name_array.length != 0 ?
+                  <div>
                    <p>Course Name</p>
                      <Select
                        name={this.state.courseName}
                        value={this.state.courseName}
-                       onChange={(val)=>this.setState({courseName: val})}
+                       onChange={(val)=>{
+                         this.setState({courseName: val});
+                       this.fetchProfessor(event, val.value);
+                     }}
                        options={this.state.course_name_array}
                      />
+                 </div>
                    :null
              }
 
               {
-                this.state.courseName !=null ?
-                    this.fetchProfessor(event);
+                this.state.professor_name_array.length != 0 ?
+
+                    <div>
                     <p>Professor Name</p>
                       <Select
                         name={this.state.professorName}
@@ -94,6 +103,7 @@ export default class StudentHome extends Component {
                         onChange={(val)=>this.setState({professorName: val})}
                         options={this.state.professor_name_array}
                       />
+                  </div>
                      :null
 
               }
@@ -127,10 +137,10 @@ export default class StudentHome extends Component {
 
   }
 
-  fetchCourse(event){
+  fetchCourse(event, disciplineName){
     console.log("fetchCourse");
     var that = this;
-    let apiUrl = baseUrl+courseUrl.replace(":discipline_name",that.state.disciplineName.value);
+    let apiUrl = baseUrl+courseUrl.replace(":discipline_name",disciplineName);
 
     axios.get(apiUrl)
     .then( response => {
@@ -148,10 +158,10 @@ export default class StudentHome extends Component {
   }
 
 
-    fetchProfessor(event){
+    fetchProfessor(event, courseName){
       console.log("fetchProfessor");
       var that = this;
-      let apiUrl = baseUrl+professorUrl.replace(":course_name",that.state.courseName.value);
+      let apiUrl = baseUrl+professorUrl.replace(":course_name",courseName);
 
       axios.get(apiUrl)
       .then( response => {
