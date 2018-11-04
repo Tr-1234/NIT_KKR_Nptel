@@ -47,7 +47,8 @@ export default class StudentHome extends Component {
       code: '',
       phase: '',
       code_array:[],
-      flag:0
+      flag:0,
+
     }
   };
 
@@ -55,7 +56,9 @@ export default class StudentHome extends Component {
     this.fetchDiscipline(event);
   }
 
+
   render() {
+       var link = "file:///Volumes/MacOS/new/" + this.state.code;
 
     return (
       <div>
@@ -109,7 +112,12 @@ export default class StudentHome extends Component {
               }
 
               <RaisedButton label="Search" primary={true} style={styles.buttonStyle} onClick={(event) => {this.Search(event)}} />
+              {
+                this.state.flag == 2 ?
+                  <video controls src= {link} />
+                   :null
 
+              }
           </div>
         </MuiThemeProvider>
       </div>
@@ -191,7 +199,9 @@ export default class StudentHome extends Component {
             that.setState({
               code : response.data.Course_ID ,
               phase : response.data.Phase,
+              flag: 2
             });
+
             console.log(that.state.code);
             console.log(that.state.phase);
           }
