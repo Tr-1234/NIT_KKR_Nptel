@@ -58,7 +58,8 @@ export default class StudentHome extends Component {
 
 
   render() {
-       var link = "file:///Volumes/MacOS/new/" + this.state.code;
+       var link = "https://media.w3.org/2010/05/sintel/trailer_hd.mp4";
+       //var link = "./../Videos/spider.mp4";
 
     return (
       <div>
@@ -112,9 +113,14 @@ export default class StudentHome extends Component {
               }
 
               <RaisedButton label="Search" primary={true} style={styles.buttonStyle} onClick={(event) => {this.Search(event)}} />
-              {
+              <br/>
+            {
                 this.state.flag == 2 ?
-                  <video controls src= {link} />
+                  <video
+                    controls
+                    src= {link}
+                    autoPlay = {true}
+                    height={300} widht={500}/>
                    :null
 
               }
