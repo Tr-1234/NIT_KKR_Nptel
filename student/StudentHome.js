@@ -13,7 +13,8 @@ import {
   disciplineUrl,
   courseUrl,
   professorUrl,
-  linkidUrl
+  linkidUrl,
+  allLinkUrl
 } from './../urls';
 
 import axios from 'axios';
@@ -36,8 +37,6 @@ export default class StudentHome extends Component {
     super(props);
     console.log('Login', props);
     this.state={
-      name:'',
-      password:'',
       discipline_name_array:[],
       course_name_array:[],
       professor_name_array:[],
@@ -48,6 +47,7 @@ export default class StudentHome extends Component {
       phase: '',
       code_array:[],
       flag:0,
+      links:[]
 
     }
   };
@@ -58,7 +58,7 @@ export default class StudentHome extends Component {
 
 
   render() {
-       var link = "https://media.w3.org/2010/05/sintel/trailer_hd.mp4";
+       var link = "files://";
        //var link = "./../Videos/spider.mp4";
 
     return (
@@ -114,16 +114,31 @@ export default class StudentHome extends Component {
 
               <RaisedButton label="Search" primary={true} style={styles.buttonStyle} onClick={(event) => {this.Search(event)}} />
               <br/>
-            {
-                this.state.flag == 2 ?
-                  <video
-                    controls
-                    src= {link}
-                    autoPlay = {true}
-                    height={300} widht={500}/>
-                   :null
 
-              }
+              {
+                  this.state.flag == 2 ?
+                      <div style={{flex : 1}}>
+                        <div style = {styles.outerContainerStyle}>
+                          <span style={styles.headingStyle}>List of Links</span>
+                        </div>
+                        <div style={styles.itemHeaderContainer}>
+                          <span style={styles.textCellContainer}>S.No.</span>
+                          <span style={styles.textCellContainer}>Link</span>
+                        </div>
+                        {
+                          this.state.links.map((member,key) => {
+                            return (
+                              <div key={key} style={styles.itemContainer}>
+                                <span style={styles.textCellContainer}>{key+1}</span>
+                                <span style={styles.textCellContainer}><a href={link+member}>{member}</a></span>
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
+                     :null
+
+                }
           </div>
         </MuiThemeProvider>
       </div>
@@ -205,9 +220,8 @@ export default class StudentHome extends Component {
             that.setState({
               code : response.data.Course_ID ,
               phase : response.data.Phase,
-              flag: 2
             });
-
+             that.fetchAllLinks();
             console.log(that.state.code);
             console.log(that.state.phase);
           }
@@ -217,6 +231,26 @@ export default class StudentHome extends Component {
       });
 
   }
+  fetchAllLinks(){
+
+    var that = this;
+    let apiUrl = baseUrl+allLinkUrl.replace(":course_id",that.state.code);
+    console.log("fetchAllLinks");
+
+    axios.get(apiUrl)
+    .then( response => {
+      console.log(response);
+      //this.fetchAllEntities("Purchase_Order", this.state.response.data[0].id);
+      that.setState({ links: response.data.files ,
+       flag :2 });
+    })
+    .catch(error => {
+      console.log(error.response);
+      alert(error.response.data.message);
+    });
+
+  }
+
 }
 
   const styles = {
@@ -225,6 +259,37 @@ export default class StudentHome extends Component {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    textCellContainer: {
+      flex : 1,
+      textAlign : 'left'
+    },
+    headingStyle: {
+      textAlign : 'center',
+      width : '100%',
+      fontFamily: 'Montserrat',
+      fontSize: '22px',
+      marginTop : 10,
+      fontWeight: 'Bold',
+      color: '#006266'
+    },
+    itemHeaderContainer: {
+      display : 'flex',
+      flexDirection : 'row',
+      alignItems : 'left',
+      backgroundColor: '#f5cd79',
+      borderRadius: 2,
+      margin: 5,
+      padding: 5
+    },
+    itemContainer: {
+      display : 'flex',
+      flexDirection : 'row',
+      alignItems : 'center',
+      justifyContent: 'space-around',
+      borderBottom: '1px solid #aaa69d',
+      margin: 5,
+      padding: 5
     },
     innerContainerStyle: {
       display: 'flex',
