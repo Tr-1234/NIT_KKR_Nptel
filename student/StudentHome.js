@@ -29,7 +29,7 @@ import {
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-
+import spider from './../Videos/spider.mp4';
 
 export default class StudentHome extends Component {
 
@@ -130,11 +130,12 @@ export default class StudentHome extends Component {
                             return (
                               <div key={key} style={styles.itemContainer}>
                                 <span style={styles.textCellContainer}>{key+1}</span>
-                                <span style={styles.textCellContainer}><a href={link+member}>{member}</a></span>
+                                <span style={styles.textCellContainer}><a href={member}>{member}</a></span>
                               </div>
                             )
                           })
                         }
+                        <video controls src={spider} />
                       </div>
                      :null
 
@@ -240,7 +241,7 @@ export default class StudentHome extends Component {
     axios.get(apiUrl)
     .then( response => {
       console.log(response);
-      //this.fetchAllEntities("Purchase_Order", this.state.response.data[0].id);
+    
       that.setState({ links: response.data.files ,
        flag :2 });
     })
