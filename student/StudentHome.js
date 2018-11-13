@@ -47,7 +47,8 @@ export default class StudentHome extends Component {
       phase: '',
       code_array:[],
       flag:0,
-      links:[]
+      links:[],
+      videoName: ''
 
     }
   };
@@ -130,16 +131,18 @@ export default class StudentHome extends Component {
                             return (
                               <div key={key} style={styles.itemContainer}>
                                 <span style={styles.textCellContainer}>{key+1}</span>
-                                <span style={styles.textCellContainer}><a href={member}>{member}</a></span>
+                                <span style={styles.textCellContainer}><a href={link+member} onClick={(event) => this.setState({videoName: member})}>{member}</a></span>
                               </div>
                             )
                           })
                         }
-                        <video controls src={spider} />
+                        <br/><br/>
+                        {this.state.videoName == "" ? null : <video autoPlay controls src = {'./../Videos/'+this.state.videoName} />}
                       </div>
                      :null
 
                 }
+
           </div>
         </MuiThemeProvider>
       </div>
@@ -222,9 +225,11 @@ export default class StudentHome extends Component {
               code : response.data.Course_ID ,
               phase : response.data.Phase,
             });
-             that.fetchAllLinks();
+            // that.fetchAllLinks();
             console.log(that.state.code);
             console.log(that.state.phase);
+            that.setState({ links: ["Spider.mp4"] ,
+             flag :2 });
           }
         })
       .catch(function (error) {
